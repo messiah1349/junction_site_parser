@@ -1,2 +1,4 @@
 *__pycache__*
 gmk_data/*
+pg_db/postgres-data/*
+rag/.env

@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "embeder"
+name = "rag"
 version = "0.1.0"
 description = ""
 authors = ["messiah1349 <messiah1349@gmail.com>"]
@@ -7,12 +7,15 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-langchain = "^0.0.334"
-sqlalchemy-utils = "^0.41.1"
 sqlalchemy = "^2.0.23"
-sentence-transformers = "^2.2.2"
+sqlalchemy-utils = "^0.41.1"
 psycopg2-binary = "^2.9.9"
 pgvector = "^0.2.3"
+langchain = "^0.0.334"
+sentence-transformers = "^2.2.2"
+openai = "^1.2.3"
+tenacity = "^8.2.3"
+python-dotenv = "^1.0.0"
 
 
 [build-system]

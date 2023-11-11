@@ -44,13 +44,13 @@ def create_data_base_and_tables(engine):
     Base.metadata.create_all(engine)
 
 
-def get_all_rows(url="sqlite:///data/main.db"):
+def get_all_rows(table=Articles, url="sqlite:///data/main.db"):
 
     engine = get_engine(url)
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    row = session.execute(select(Articles)).all()
+    row = session.execute(select(table)).all()
     return row
 
 def get_session(url="sqlite:///data/main.db"):
