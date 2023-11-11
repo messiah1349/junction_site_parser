@@ -1,0 +1,3 @@
+data/*
+constants/.env
+*__pycache__*
