@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "links-extractor"
+version = "0.1.0"
+description = ""
+authors = ["messiah1349 <messiah1349@gmail.com>"]
+readme = "README.md"
+packages = [{include = "links_extractor"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+beautifulsoup4 = "^4.12.2"
+requests = "^2.31.0"
+lxml = "^4.9.3"
+sqlalchemy = "^2.0.23"
+sqlalchemy-utils = "^0.41.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
