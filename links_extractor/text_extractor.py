@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
-from articles_db import Articles, get_engine
+from links_extractor.articles_db import Articles, get_engine
 from sqlalchemy import insert
 from sqlalchemy.orm import sessionmaker
 

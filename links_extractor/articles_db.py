@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 
 Base = declarative_base()
 
+from sqlalchemy.ext.declarative import declarative_base
 
 class Articles(Base):
 

@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "stainless-business-assistant"
+version = "0.1.0"
+description = ""
+authors = ["messiah1349 <messiah1349@gmail.com>"]
+readme = "README.md"
+packages = [{include = "stainless_business_assistant"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+python-telegram-bot = "^20.6"
+python-dotenv = "^1.0.0"
+sqlalchemy = "^2.0.23"
+sqlalchemy-utils = "^0.41.1"
+psycopg2-binary = "^2.9.9"
+pgvector = "^0.2.3"
+langchain = "^0.0.334"
+openai = "^1.2.3"
+tenacity = "^8.2.3"
+sentence-transformers = "^2.2.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

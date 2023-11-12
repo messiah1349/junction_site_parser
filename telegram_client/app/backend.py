@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from rag.call_llm import get_llm_response
 
 class BaseBackend(ABC):
 
@@ -12,5 +13,6 @@ class Backend(BaseBackend):
         pass
 
     def call(self, query: str) -> str:
-        return f"your response - {query}"
+        response = get_llm_response(query)
+        return response
 

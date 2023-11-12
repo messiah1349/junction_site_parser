@@ -1,6 +1,4 @@
-import sys
-sys.path.append('../links_extractor/')
-from articles_db import Articles, get_all_rows, ChunkedArticles, get_session
+from links_extractor.articles_db import Articles, get_all_rows, ChunkedArticles, get_session
 import psycopg2
 from pgvector.sqlalchemy import Vector
 from sqlalchemy import create_engine, Column, Integer, String, DateTime 
@@ -11,24 +9,42 @@ from langchain.vectorstores.pgvector import PGVector
 import numpy as np
 from sqlalchemy import insert, select
 from sqlalchemy.sql import text
+from pgvector.sqlalchemy import Vector
 
 from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 from sqlalchemy.orm import mapped_column
 from sqlalchemy_utils import database_exists, create_database
 
-conn = psycopg2.connect(
-    host="localhost",
-    database="vectordb",
-    user="testuser",
-    password="testpwd")
+from constants.constants import POSTGRES_HOST, POSTGRES_PASSWORD, POSTGRES_USER
 
-host="localhost"
-dbname="vectordb"
-user="testuser"
-password="testpwd"
-port=5432
-CONNECTION_STRING = f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{dbname}"
+# conn = psycopg2.connect(
+#     host=POSTGRES_HOST,
+#     database="vectordb",
+#     user="user",
+#     password=POSTGRES_PASSWORD
+# )
+
+# host="localhost"
+# dbname="vectordb"
+# user="testuser"
+# password="testpwd"
+# port=5432
+# CONNECTION_STRING = f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{dbname}"
+
+def get_connection_string():
+    user=POSTGRES_USER
+    dbname="vectordb"
+    host=POSTGRES_HOST
+    password=POSTGRES_PASSWORD
+    port='5432'
+
+    CONNECTION_STRING = f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{dbname}"
+    # print(f"{CONNECTION_STRING=}")
+
+    return CONNECTION_STRING
+
+CONNECTION_STRING = get_connection_string()
  
 
 def get_engine(url=CONNECTION_STRING):
@@ -47,7 +63,7 @@ def create_data_base_and_tables(engine):
 
     if not database_exists(engine.url):
         create_database(engine.url)
-        logger.info(f"database was created, url={engine.url}")
+        # logger.info(f"database was created, url={engine.url}")
     Base.metadata.create_all(engine)
 
 
@@ -55,7 +71,6 @@ engine = get_engine()
 session = get_session()
 session.execute(text('CREATE EXTENSION IF NOT EXISTS vector'))
 
-from pgvector.sqlalchemy import Vector
 
 class VectorDB(Base):
     __tablename__ = 'vector_db'

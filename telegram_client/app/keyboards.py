@@ -1,5 +1,5 @@
 from telegram import ReplyKeyboardMarkup
-from constants.texts import texts
+from telegram_client.constants.texts import texts
 
 start_keyboard_options = [
         [texts['run_query_button']],

@@ -11,10 +11,10 @@ from telegram.ext import (
 )
 from dataclasses import dataclass
 
-from app.backend import BaseBackend
-import app.keyboards as kb
-from constants.texts import texts
-from app.utils import name_to_reg
+from telegram_client.app.backend import BaseBackend
+import telegram_client.app.keyboards as kb
+from telegram_client.constants.texts import texts
+from telegram_client.app.utils import name_to_reg
 
 class Client:
 

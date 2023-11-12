@@ -1,15 +1,13 @@
-import sys
-sys.path.append('../links_extractor/')
-from articles_db import Articles, get_all_rows, ChunkedArticles, get_session
+from links_extractor.articles_db import Articles, get_all_rows, ChunkedArticles, get_session
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 import psycopg2
 from langchain.vectorstores.pgvector import DistanceStrategy
 from langchain.vectorstores.pgvector import PGVector
-from vector_db import add_vector
+from embeder.vector_db import add_vector
 import numpy as np
 
-sql_url = 'sqlite:///../links_extractor/data/main.db'
+sql_url = 'sqlite:///links_extractor/data/main.db'
 articles = get_all_rows(table=ChunkedArticles, url=sql_url)
 
 texts = [article[0].text for article in articles]

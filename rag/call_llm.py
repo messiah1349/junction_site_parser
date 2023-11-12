@@ -1,15 +1,13 @@
-import sys
 import os
-sys.path.append('../embeder/')
-from retriever import get_most_close_sources
+from embeder.retriever import get_most_close_sources
 from tenacity import retry, wait_exponential
 import openai
 from openai import OpenAI
-from dotenv import load_dotenv
+from constants.constants import OPENAI_KEY
 
-load_dotenv()  # take environment variables from .env.
+# openai.api_key = os.getenv('OPENAI_KEY')
+openai.api_key = OPENAI_KEY
 
-openai.api_key = os.getenv('OPENAI_KEY')
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 
@@ -19,8 +17,13 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 #     print(el.link.strip())
 
 def get_context(question: str, top_k: int):
-    context = "\n".join([el.text for el in get_most_close_sources(question, top_k)])
-    return context
+    neighbors = get_most_close_sources(question, top_k)
+    resp = [(el.text, el.link) for el in neighbors]
+    context = [x[0] for x in resp]
+    context = "\n".join(context)
+    sources = {x[1] for x in resp}
+    # print("srr", sources)
+    return context, sources
 
 
 def get_prompt(question: str, context: str):
@@ -70,7 +73,7 @@ client = OpenAI(
 
 def get_llm_response(question: str):
 
-    context = get_context(question, top_k=8)
+    context, sources = get_context(question, top_k=8)
     messages=get_prompt(question, context)
 
     response = client.chat.completions.create(
@@ -78,12 +81,16 @@ def get_llm_response(question: str):
       messages=messages,
     )
 
-    answer = "\n".join([choice.message.content for choice in response.choices])
+    answer = "Thank you for waiting! \n\nThat is my response:\n\n    "
+    answer = answer + "\n".join([choice.message.content for choice in response.choices])
+    if sources:
+        sources = "\n".join([src.strip() for src in sources])
+        answer = answer + '\n\nsource links: \n\n' + sources
 
     return answer
 
 
-question = "who has been subsidizing its own steel industry for decades?"
+# question = "who has been subsidizing its own steel industry for decades?"
 
 # answer = get_llm_response(question)
 # print(f"{answer}")

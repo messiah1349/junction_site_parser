@@ -1,8 +1,9 @@
 *__pycache__*
-.env
 gmk_data/*
-pg_db/postgres-data/*
 rag/.env
 telegram_client/.venv
 telegram_client/constants/.env
 .DS_Store
+.git
+.venv
+.env

@@ -1,5 +1,5 @@
-from vector_db import add_vector, get_top_neighbors
-from embedder import Embedder
+from embeder.vector_db import add_vector, get_top_neighbors
+from embeder.embedder import Embedder
 import numpy as np
 
 

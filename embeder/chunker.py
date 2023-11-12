@@ -1,6 +1,4 @@
-import sys
-sys.path.append('../links_extractor/')
-from articles_db import Articles, get_all_rows, ChunkedArticles, get_session
+from links_extractor.articles_db import Articles, get_all_rows, ChunkedArticles, get_session
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 sql_url = 'sqlite:///../links_extractor/data/main.db'
